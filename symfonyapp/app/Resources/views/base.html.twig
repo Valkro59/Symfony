@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %} {{ data.company_name }}{% endblock %}</title>
+{% block stylesheets %}
+
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/superhero/bootstrap.min.css">
+
+
+{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+
+{% block navbar %} {% include 'block/navbar.html.twig' %} {% endblock %}
+
+{% block flashbag %}{% include 'block/flash.html.twig' %}{% endblock %}
+
+<div class="container">
+            <div class="row mt-4">
+                <div class="col-md-8">
+        {% block body %}{% endblock %}</div>
+                <div class="col-md-4">
+                    <h2>Colonne de la dance</h2>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">List group item heading</h5>
+                                <small>3 days ago</small>
+                            </div>
+                            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                            <small>Donec id elit non mi porta.</small>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">List group item heading</h5>
+                                <small class="text-muted">3 days ago</small>
+                            </div>
+                            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                            <small class="text-muted">Donec id elit non mi porta.</small>
+                        </a>
+                    </div>
+                    <div>
+                        <img src="https://media3.giphy.com/media/126cbtzsOSnjQQ/giphy.gif" width="350px">
+                    </div>
+                </div>
+                </div>
+    </div>
+{% block javascripts %}
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+{% endblock %}
+
+
+{% block footer %}{% include 'block/footer.html.twig' %}{% endblock %}
+    </body>
+</html>

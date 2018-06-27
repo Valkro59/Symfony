@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+{{ parent() }} Jean Claude CONTACT
+{% endblock %}
+
+{% block body %}
+
+
+    <h1>Bienvenue sur FULL CONTACT !</h1>
+    <img src="http://martialmoviestars.free.fr/Jaquettes%20DVD/Jean-Claude%20Van%20Damme/Full%20Contact%20(dvd).JPG" width="600px">
+
+
+            <p>Formulaire de contact</p>
+
+            {{ form_start(form) }}
+
+
+    <div class="form-group">
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email, {'attr': {'class': 'form-control col-md-5'}} ) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.firstname) }}
+        {{ form_widget(form.firstname, {'attr': {'class': 'form-control col-md-5'}} ) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.lastname) }}
+        {{ form_widget(form.lastname, {'attr': {'class': 'form-control col-md-5'}} ) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.message) }}
+        {{ form_widget(form.message, {'attr': {'class': 'form-control col-md-5'}} ) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.message2) }}
+        {{ form_widget(form.message2, {'attr': {'class': 'form-control col-md-5'}} ) }}
+    </div>
+
+    {{ form_widget(form.btnsend, {'attr': {'class': 'btn btn-success'}}) }}
+
+            {{ form_end(form) }}
+
+{% endblock %}
+
+
+
