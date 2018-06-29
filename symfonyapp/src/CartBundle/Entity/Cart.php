@@ -19,27 +19,56 @@ class Cart
      */
     private $total = 0;
 
-    public function addProduct(Product $product, $quantity = 1)
+    /**
+     * @param Product $product
+     * @param $quantity
+     * @return float|int
+     */
+    public function calculTotal(Product $product, int $quantity)
     {
-        if ($quantity<1){
-            throw new \Exception('quantity less than 1');
-            
-        }
-        if ($this->hasProduct($product)){
-            $this->setProduct($product);
-    }
-        $this->setQuantity($product, $quantity);
+        $subtotal = $product->getPrice() * $quantity;
 
-        return $this;
+        $this->total += $subtotal;
+
+        return $subtotal;
+    }
+
+    /**
+     * @param $quantity
+     * @return float|int
+     */
+    public function countItems()
+    {
+        return array_sum($this->getQuantity());
     }
     /**
      * @param Product $product
      * @param int $quantity
      * @return $this
+     * @throws \Exception
+     */
+    public function addProduct(Product $product, $quantity = 1)
+    {
+        if ($quantity < 1) {
+            throw new \Exception('Quantity less than 1');
+
+        }
+        if (!$this->hasProduct($product)) {
+            $this->setProduct($product);
+        }
+        $this->setQuantity($product, $quantity);
+
+        return $this;
+    }
+
+    /**
+     * @param Product $product
+     * @param $quantity
+     * @return $this
      */
     public function setQuantity(Product $product, int $quantity)
     {
-        $this->quantity[$product->getId()] +=$quantity;
+        $this->quantity[$product->getId()] += $quantity;
         return $this;
     }
 
@@ -49,11 +78,12 @@ class Cart
      */
     public function setProduct(Product $product)
     {
-    $this->products[$product->getId()] = $product;
-    $this->quantity[$product->getId()] = 0;
+        $this->products[$product->getId()] = $product;
+        $this->quantity[$product->getId()] = 0;
 
-    return $this;
+        return $this;
     }
+
     /**
      * @param Product $product
      * @return bool
@@ -62,6 +92,7 @@ class Cart
     {
         return isset($this->products[$product->getId()]);
     }
+
     /**
      * @return array
      */
@@ -70,7 +101,6 @@ class Cart
         return $this->products;
     }
 
-
     /**
      * @return array
      */
@@ -78,7 +108,6 @@ class Cart
     {
         return $this->quantity;
     }
-
 
     /**
      * @return int
@@ -98,5 +127,40 @@ class Cart
         return $this;
     }
 
+    /**
+     * @param Product $product
+     * @param int $quantity
+     * @return $this|void
+     * @throws \Exception
+     */
+    public function removeProduct(Product $product, $quantity = 1)
+    {
+        if (!$this->hasProduct($product)) {
+            return;
+        }
 
+        if ($quantity < 1) {
+            throw new \Exception('Quantité moins de 1, ...bip...erreur, erreur');
+        }
+
+        if ($quantity < 1 || $quantity >= $this->quantity[$product->getId()]) {
+            unset($this->products[$product->getId()]);
+            unset($this->quantity[$product->getId()]);
+            return;
+        }
+
+        $this->quantity[$product->getId()] -= $quantity;
+
+        return $this;
+
+    }
+
+    public function clear()
+    {
+        $this->products = [];
+        $this->quantity = [];
+        $this->total = 0;
+
+        return $this;
+    }
 }

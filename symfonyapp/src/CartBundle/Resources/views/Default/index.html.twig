@@ -1,0 +1,58 @@
+{% extends'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Votre commande Monseigneur...</h1>
+
+    {% if not app.session.has('cart') or cart.products is empty %}
+        <p>Votre panier est vide</p>
+        <p><a href="{{ path('homepage') }}">Visitez notre boutique Badass</a></p>
+    {% else %}
+
+        <table class="table table-striped">
+            <tr>
+                <td>Action</td>
+                <th>Titre</th>
+                <th>Prix</th>
+                <th>Quantité</th>
+                <th>Total</th>
+            </tr>
+
+            {% for id, product in cart.products %}
+                {% set quantity = cart.quantity[id] %}
+                <tr>
+                    <td>
+                        <div class="row-md-2">
+                            <a href="{{ path('cart_add', {id: product.id}) }}"><i
+                                        class="btn btn-success fa fa-plus"></i></a>
+                            <a href="{{ path('cart_remove', {id: product.id}) }}"><i
+                                        class="btn btn-danger fa fa-trash-alt"></i></a>
+                        </div>
+                    </td>
+                    <td>{{ product.title }}</td>
+                    <td>{{ product.price | number_format(2, ',', ' ') }}€</td>
+                    <td>{{ quantity }}</td>
+                    <td>{{ (cart.calculTotal(product, quantity))|number_format(2, ',', ' ') }}€</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <th colspan="4"><strong>Total</strong></th>
+                <td><strong>{{ cart.total|number_format(2, ',', ' ') }}€</strong></td>
+            </tr>
+        </table>
+
+        <div class="row">
+            <div class="col">
+                <a href="{{ path('cart_clear') }}" class="btn btn-danger float-left"><i class="fa fa-trash-alt"></i>
+                    Supprimer tout le bordel</a>
+            </div>
+
+            <div class="col">
+                <a href="{{ path('cart_clear') }}" class="btn btn-success float-right"><i class="fas fa-check"></i>
+                    Valider et balancer la monnaie</a>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
+

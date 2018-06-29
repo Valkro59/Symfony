@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{%  block title %}
+{% block title %}
     {{ parent() }} - Produits
 {% endblock %}
 
@@ -11,23 +11,24 @@
 
     <div class="row">
         {% for product in products %}
-        <div class="col-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{ product.title }}</h5>
-                    <h6 class="card-subtitle text-muted">{{ product.description }}</h6>
-                </div>
-                <img style="height: 200px; width: 100%; display: block;" src="{{ asset('upload/products/' ~ product.imageUrl) }}" alt="Card image">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.title }}</h5>
+                        <h6 class="card-subtitle text-muted">{{ product.description }}</h6>
+                    </div>
+                    <img style="height: 200px; width: 100%; display: block;"
+                         src="{{ asset('upload/products/' ~ product.imageUrl) }}" alt="Card image">
 
-            </div>
-            <div class="card mb-3">
-                <div class="card-body">
-                    <a href="#" class="btn btn-success">+</a>
-                    <a href="#" class="btn btn-primary">-</a>
-                    <h3 class="float-right">{{ product.price|number_format(2, ',', ' ') }}€</h3>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <a href="{{ path('cart_add', {id: product.id}) }}" class="btn btn-success">+</a>
+                        <a href="{{ path('cart_remove', {id: product.id}) }}" class="btn btn-primary">-</a>
+                        <h3 class="float-right">{{ product.price|number_format(2, ',', ' ') }}€</h3>
+                    </div>
                 </div>
             </div>
-        </div>
         {% endfor %}
     </div>
 

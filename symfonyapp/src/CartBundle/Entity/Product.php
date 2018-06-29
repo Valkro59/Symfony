@@ -145,7 +145,15 @@ class Product
         return __DIR__ . '/../../../web/upload/products';
     }
 
-
+    /**
+     * @param $id
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     /**
      * Get id

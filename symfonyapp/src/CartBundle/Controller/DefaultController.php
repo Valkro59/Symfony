@@ -8,10 +8,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="cart_index")
      */
     public function indexAction()
     {
-        return $this->render('@Cart/Default/index.html.twig');
+        $cart = $this->get('session')->get('cart');
+        $cart->setTotal(0);
+
+        return $this->render('@Cart/Default/index.html.twig', [
+            'cart' => $cart,
+        ]);
     }
 }

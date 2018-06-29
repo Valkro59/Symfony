@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{{ path('homepage') }}">BADASS</a>
+    <a class="navbar-brand" href="{{ path('homepage') }}">Liste Produits</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation" style="">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -14,7 +14,19 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('Contact') }}">Contact</a>
             </li>
-        </ul>
 
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('cart_product_add') }}">Ajout produit dans la DB</a>
+            </li>
+        </ul>
+        {% if app.session.has('cart') %}
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link nav-cart" href="{{ path('cart_index') }}">
+                    <i class="fa fa-shopping-cart"></i>{{ app.session.get('cart').countItems() }}
+                </a>
+            </li>
+        {% endif %}
+        </ul>
     </div>
 </nav>
