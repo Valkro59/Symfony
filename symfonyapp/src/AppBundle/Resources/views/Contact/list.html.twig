@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
+    <table class="table table-striped">
+        <th>{{ knp_pagination_sortable(pagination, 'Prénom', 'c.firstname')|raw }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'Nom', 'c.lastname')|raw }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'Message', 'c.message')|raw }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'Email', 'c.email')|raw }}</th>
+        {% for message in pagination %}
+            <tr>
+                <td>{{ message.firstname }}</td>
+                <td>{{ message.lastname }}</td>
+                <td>{{ message.message }}</td>
+                <td>{{ message.email }}</td>
+
+            </tr>
+        {% endfor %}
+
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
+{% endblock %}

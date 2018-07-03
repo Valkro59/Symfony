@@ -16,6 +16,25 @@ use Symfony\Component\VarDumper\VarDumper;
 class ContactController extends Controller
 {
     /**
+     * @Route("/contact/list", name="app_contact_list")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function listAction(Request $request)
+    {
+        $repo = $this->getDoctrine()->getRepository('AppBundle:Contact');
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $repo->findAllMessages(),
+            $request->query->getInt('page', 1),
+            3
+        );
+
+        return $this->render('@App/Contact/list.html.twig', [
+            'pagination' => $pagination]);
+
+    }
+
+    /**
      * @Route("/contact", name="Contact" )
      * @return \Symfony\Component\HttpFoundation\Response
      */

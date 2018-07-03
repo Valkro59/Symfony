@@ -10,5 +10,11 @@ namespace AppBundle\Repository;
  */
 class ContactRepository extends \Doctrine\ORM\EntityRepository
 {
+    function findAllMessages()
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        return $qb;
+    }
 
 }
